@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ExplodeCubes : MonoBehaviour
 {
 
-    //public GameObject restartButton, explosion;
-    public GameObject restartButton;
+    public GameObject restartButton, explosion;
     private bool _collisionSet;
 
     private void OnCollisionEnter(Collision collision)
@@ -19,14 +19,14 @@ public class ExplodeCubes : MonoBehaviour
                 child.SetParent(null);
             }
             restartButton.SetActive(true);
-            //Camera.main.transform.localPosition -= new Vector3(0, 0, 3f);
-           // Camera.main.gameObject.AddComponent<CameraShake>();
+            Camera.main.transform.position -= new Vector3(0, 0, 3f);
+            Camera.main.gameObject.AddComponent<CameraShake>();
 
-            //GameObject newVfx = Instantiate(explosion, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, collision.contacts[0].point.z), Quaternion.identity) as GameObject;
-            //Destroy(newVfx, 2.5f);
+            GameObject newVfx = Instantiate(explosion, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, collision.contacts[0].point.z), Quaternion.identity) as GameObject;
+            Destroy(newVfx, 2.5f);
 
-            //if (PlayerPrefs.GetString("music") != "No")
-            //    GetComponent<AudioSource>().Play();
+            if (PlayerPrefs.GetString("music") != "No")
+                GetComponent<AudioSource>().Play();
 
             Destroy(collision.gameObject);
             _collisionSet = true;
